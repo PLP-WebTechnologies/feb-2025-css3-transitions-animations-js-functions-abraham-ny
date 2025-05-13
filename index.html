@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Animations & LocalStorage</title>
+  <style>
+    /* Basic Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+#animateButton.active {
+    animation: bounce 0.5s linear infinite;
+}
+
+/* Image Hover Animation */
+#animatedImage {
+    width: 300px;
+    border-radius: 10px;
+    transition: transform 0.5s, filter 0.5s;
+}
+
+#animatedImage:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode button {
+    background-color: #444;
+    color: #f0f0f0;
+}
+
+  </style>
+</head>
+<body>
+    <header>
+        <h1>CSS3 Animations & JavaScript Magic ✨</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Toggle Theme 🌗</h2>
+            <button id="themeToggle">Toggle Dark Mode</button>
+        </section>
+
+        <!-- Animated Button -->
+        <section>
+            <h2>Interactive Animations</h2>
+            <button id="animateButton">Animate Me!</button>
+        </section>
+        <section>
+            <h2>Hover to See the Magic</h2>
+            <img id="animatedImage" src="https://via.placeholder.com/300" alt="Placeholder Image">
+        </section>
+    </main>
+<script>
+  // theme toggle cookies local
+const themeToggle = document.getElementById("themeToggle");
+
+// Check LocalStorage and set theme on load
+window.onload = () => {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+};
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    localStorage.setItem("theme", currentTheme);
+});
+
+// btn anim
+const animateButton = document.getElementById("animateButton");
+
+animateButton.addEventListener("click", () => {
+    if (animateButton.classList.contains("active")) {
+        animateButton.classList.remove("active");
+    } else {
+        animateButton.classList.add("active");
+        setTimeout(() => {
+            animateButton.classList.remove("active");
+        }, 2000);
+    }
+});
+
+</script>
+</body>
+</html>
